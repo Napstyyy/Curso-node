@@ -57,7 +57,7 @@ function ordenarProducto(producto)
 
 function procesarPedido(respuesta)
 {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         console.log('Procesando respuesta...');
         console.log(`La respuesta fue: ${respuesta}`);
         setTimeout(() => 
@@ -66,3 +66,35 @@ function procesarPedido(respuesta)
         }, 4000);
     });
 }
+
+// ordenarProducto('taza')
+//     .then(respuesta => {
+//         console.log('respuesta recibida');
+//         console.log(respuesta);
+//         return procesarPedido(respuesta);
+//     })
+//     .then(respuestaProcesada => {
+//         console.log(respuestaProcesada);
+//     })
+//     .catch(error => {
+//         console.log(error);
+//     })
+
+
+// es mejor usar esta forma
+async function realizarPedido(producto)
+{
+    try 
+    {
+    const respuesta = await ordenarProducto(producto);
+    console.log('Respuesta recibida');
+    const respuestaProcesada = procesarPedido(respuesta);
+    console.log(respuestaProcesada);
+    } catch(error)
+    {
+        console.log(error);
+    }
+}
+
+realizarPedido('lapiz');
+
